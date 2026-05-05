@@ -2,6 +2,8 @@ import Fasfity from "fastify"
 import jwt from "@fastify/jwt"
 import cors from "@fastify/cors"
 import { usersRoutes } from "./modules/users/users.controller.js";
+import { authRoutes } from "./modules/auth/auth.controller.js";
+import { teamsRoutes } from "./modules/teams/teams.controller.js";
 
 
 
@@ -14,6 +16,8 @@ export function buildApp() {
         secret: process.env.JWT_SECRET!
     })
     app.register(usersRoutes)
+    app.register(authRoutes)
+    app.register(teamsRoutes)
 
     return app
 
