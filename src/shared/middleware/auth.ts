@@ -1,9 +1,17 @@
 import type { FastifyReply, FastifyRequest } from "fastify";
+import { AppError } from "../errors/app-error.js";
 
-export async function authMiddleware(request: FastifyRequest,reply: FastifyReply) {
+
+
+
+
+
+export async function authMiddleware(request: FastifyRequest, reply: FastifyReply) {
+
+   
   try {
     await request.jwtVerify();
   } catch {
-    return reply.status(401).send({ message: "Unauthorized" });
+    throw new AppError("Unauthorized", 401);
   }
 }

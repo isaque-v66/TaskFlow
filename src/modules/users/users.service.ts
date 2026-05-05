@@ -1,19 +1,18 @@
 import { UsersRepository } from "./users.repository.js";
-import bcrypt from "bcrypt"
-
+import { hashPassword } from "../../utils/hash.js";
+import type { CreateUserDTO } from "./users.schema.js";
 
 
 export class UsersService {
     constructor(private repo: UsersRepository){}
 
 
-    async create(data: any) {
-        const hashed = await bcrypt.hash(data.password, 10)
-
+    async create(data: CreateUserDTO) {
+        const hashed = await hashPassword(data.password);
 
         return this.repo.create({
             ...data,
-            password: hashed
-        })
+            password: hashed,
+        });
     }
 }
